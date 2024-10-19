@@ -11,11 +11,28 @@ jobs:
       matrix:
         python-version: [3.13.0]  
 
-    steps:   
-       - name: Run specific tests (tests.GoogleFinanceTest)
-         if: ${{ github.event.inputs.test_mode == 'tests.GoogleFinanceTest' }}
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run tests
+      run: |
+        python -m unittest discover tests/
+        
+    - name: Run specific tests (tests.GoogleFinanceT)
+       if: ${{ github.event.inputs.test_mode == 'tests.GoogleFinanceTest' }}
          run: |
-           python -m unittest tests.GoogleFinanceTest
+         python -m unittest tests.GoogleFinanceTest
 
   
 
