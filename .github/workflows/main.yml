@@ -9,13 +9,13 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.13.0] 
+        python-version: [3.13.0]  
 
-steps:
-  - name: Run specific tests (tests.GoogleFinanceTest)
-    if: ${{ github.event.inputs.test_mode == 'tests.GoogleFinanceTest' }}
-    run: |
-      python -m unittest tests.GoogleFinanceTest
+    steps:   
+       - name: Run specific tests (tests.GoogleFinanceTest)
+         if: ${{ github.event.inputs.test_mode == 'tests.GoogleFinanceTest' }}
+         run: |
+           python -m unittest tests.GoogleFinanceTest
 
   
 
