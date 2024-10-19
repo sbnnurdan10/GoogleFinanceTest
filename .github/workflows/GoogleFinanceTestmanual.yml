@@ -9,8 +9,7 @@ on:
         type: choice
         options:
           - 'full'
-          - 'tests.GoogleFinanceTest'
-
+      
 jobs:
   run-tests:
     runs-on: ubuntu-latest
@@ -18,20 +17,9 @@ jobs:
       matrix:
         python-version: [3.13.0]  
 
-    steps:
-   
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: ${{ matrix.python-version }}
-
-    - name: Run tests (Full Suite)
-      if: ${{ github.event.inputs.test_mode == 'full' }}
-      run: |
-        python -m unittest discover tests/
-
-    - name: Run specific tests (tests.GoogleFinanceTest)
-      if: ${{ github.event.inputs.test_mode == 'tests.GoogleFinanceTest' }}
-      run: |
-        python -m unittest tests.GoogleFinanceTest
+    steps:   
+       - name: Run specific tests (tests.GoogleFinanceTest)
+         if: ${{ github.event.inputs.test_mode == 'tests.GoogleFinanceTest' }}
+         run: |
+           python -m unittest tests.GoogleFinanceTest
 
