@@ -21,7 +21,7 @@ jobs:
     steps:
     
 
-    - name: Run specific tests (Test Case 5 and 6)
+    - name: Run specific tests (tests.GoogleFinanceTest)
       if: ${{ github.event.inputs.test_mode == 'tests.GoogleFinanceTest' }}
       run: |
         python -m unittest tests.GoogleFinanceTest
