@@ -10,7 +10,7 @@ on:
         type: choice
         options:
           - 'full'
-          - 'GoogleFinanceTesttest_5_and_6'
+          - 'GoogleFinanceTesttest'
 
 jobs:
   run-tests:
