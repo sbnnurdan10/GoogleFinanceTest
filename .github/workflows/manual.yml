@@ -1,0 +1,44 @@
+name: Manual workflow
+on:
+  workflow_dispatch:
+    inputs:
+      test_mode:
+        description: 'Choose the test set to run'
+        required: true
+        default: 'full'
+        type: choice
+        options:
+          - 'full'
+          - 'tests.GoogleFinanceTest'
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.13.0]  
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run tests (Full Suite)
+      if: ${{ github.event.inputs.test_mode == 'full' }}
+      run: |
+        python -m unittest discover tests/
+
+    - name: Run specific tests (Test Case 5 and 6)
+      if: ${{ github.event.inputs.test_mode == 'tests.GoogleFinanceTest' }}
+      run: |
+        python -m unittest tests.GoogleFinanceTest
+        
