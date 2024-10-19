@@ -8,8 +8,7 @@ on:
         default: 'full'
         type: choice
         options:
-          - 'full'
-          - 'tests.GoogleFinanceTest'
+                  - 'tests.GoogleFinanceTest'
 
 jobs:
   run-tests:
@@ -18,10 +17,9 @@ jobs:
       matrix:
         python-version: [3.13.0]  
 
-    steps:
-    
+    steps:    
 
-    - name: Run specific tests (Test Case 5 and 6)
+    - name: Run specific tests (tests.GoogleFinanceTest)
       if: ${{ github.event.inputs.test_mode == 'tests.GoogleFinanceTest' }}
       run: |
         python -m unittest tests.GoogleFinanceTest
